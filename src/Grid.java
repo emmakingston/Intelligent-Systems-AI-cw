@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Grid {
@@ -29,28 +30,20 @@ public class Grid {
 			}			
 		}
 		
-		//sets position of blocks 
-		aC = blockCol;
-		bC = blockCol;
-		cC = blockCol;
-		aR = size -3;
-		bR = size -2;
-		cR = size -1;
-		
-		config[aR][aC] = 'A';
-		config[bR][bC] = 'B';
-		config[cR][cC] = 'C';
+		config[size-3][blockCol] = 'A';
+		config[size-2][blockCol] = 'B';
+		config[size-1][blockCol] = 'C';
 		
 		
 	}
 	
-	//creates first grid (testing purposes)
-	//a,b,cPos store the location of each block, agent can be placed anywhere on board
-	public Grid(int gridSize, int aR, int bR, int cR,int aC, int bC, int cC, int agRPos, int agCPos) {
+	//creates initial grid
+	//passes positions of A,B,C and agent blocks
+	public Grid(int gridSize, int[] a, int[] b, int[] c, int[] agent) {
 		
 		size = gridSize;
-		agentR = agRPos;
-		agentC = agCPos;
+		agentR = agent[0];
+		agentC = agent[1];
 		
 		config = new char[size][size];
 		
@@ -62,14 +55,42 @@ public class Grid {
 		}
 		
 		//sets position of blocks and agent
-		config[aR][aC] = 'A';
-		config[bR][bC] = 'B';
-		config[cR][cC] = 'C';
-		config[agentR][agentC] = 'N';
-		
+		config[a[0]][a[1]] = 'A';
+		config[b[0]][b[1]] = 'B';
+		config[c[0]][c[1]] = 'C';
+		config[agentR][agentC] = 'N';		
 		
 	}
 	
+	//creates initial grid (with unmovables)
+	//passes position of A,B,C and agent blocks
+	//passes array of unmovable blocks
+	public Grid(int gridSize, int[] a, int[] b, int[] c, int[] agent, ArrayList<int[]> unmovable) {
+		
+		size = gridSize;
+		agentR = agent[0];
+		agentC = agent[1];
+		
+		config = new char[size][size];
+		
+		for(int i = 0; i<size; i++) {
+			for(int j = 0; j<size; j++) {
+				config[i][j] = 'x';
+				
+			}			
+		}
+		
+		for(int[] n:unmovable) {
+			config[n[0]][n[1]] = 'O';
+		}
+		
+		//sets position of blocks and agent
+		config[a[0]][a[1]] = 'A';
+		config[b[0]][b[1]] = 'B';
+		config[c[0]][c[1]] = 'C';
+		config[agentR][agentC] = 'N';		
+		
+	}
 	
 	//creates a duplicate of the grid
 	public Grid(Grid old) {
