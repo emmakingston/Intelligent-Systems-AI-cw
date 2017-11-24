@@ -7,7 +7,6 @@ public class Grid {
 	private int size;
 	private int agentR;
 	private int agentC;
-	private int manhattan;
 	
 	private int aR;			//these are used when creating a goal grid to notate positions ABC 
 	private int aC;
@@ -114,49 +113,21 @@ public class Grid {
 		}
 		
 	}
-	
-	//calculates the total number of positions each block is from its goal position
-	public void setManhattan(Grid goal) {
-		manhattan = 0;
-		int[] goalPos = goal.getBlockPos();
+		
+	//gets the position of the character in the grid
+	public int[] getPos(char find) {
+		int[] pos = new int[2];
 		
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				
-				if(config[i][j]=='A') {
-					manhattan = manhattan + Math.abs(goalPos[0]-i) + Math.abs(goalPos[1]-j);
+				if(config[i][j]==find) {
+					pos[0]=i;
+					pos[1]=j;
+					return pos;
 				}
-				
-				if(config[i][j]=='B') {
-					manhattan = manhattan + Math.abs(goalPos[2]-i) + Math.abs(goalPos[3]-j);
-				}
-				
-				if(config[i][j]=='C') {
-					manhattan = manhattan + Math.abs(goalPos[4]-i) + Math.abs(goalPos[5]-j);
-				}
-				
 			}
 		}
-		
-	}
-	
-	public int getManhattan() {
-		return manhattan;
-	}
-	
-	//gets the A,B,C positions as an array
-	//only used for the goal grid
-	public int[] getBlockPos() {
-		int[] blockPos = new int[6];
-		
-		blockPos[0] = aR;
-		blockPos[1] = aC;
-		blockPos[2] = bR;
-		blockPos[3] = bC;
-		blockPos[4] = cR;
-		blockPos[5] = cC;
-		
-		return blockPos;
+		return null;
 	}
 	
 	

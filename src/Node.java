@@ -7,6 +7,7 @@ public class Node implements Comparable<Node>{
 	private Grid board;
 	private int depth;
 	private int fVal; 	//result of g(n) + h(n) (depth plus manhattan)
+	private int manhatDist;
 	
 	//root node
 	public Node(Grid start) {
@@ -60,15 +61,42 @@ public class Node implements Comparable<Node>{
 		return fVal;
 	}
 	
+	//returns the mnattan distance of the grid from the previously passed goal state
+	public int getManhat() {
+		return manhatDist;
+	}
+	
 	//sets the layer of the node
 	public void setDepth(int d) {
 		depth = d;
 	}
 	
+	//calculates the manhattan distance
+	public void setManhattan(Grid goal) {
+		int[] configPos = new int[2];
+		int[] goalPos = new int[2];
+		
+		//calculates distance for A block between current and goal states
+		configPos = board.getPos('A');
+		goalPos = goal.getPos('A');		
+		manhatDist = manhatDist +  Math.abs(goalPos[0]-configPos[0]) + Math.abs(goalPos[1]-configPos[1]);
+
+		//calculates distance for B block between current and goal states
+		configPos = board.getPos('B');
+		goalPos = goal.getPos('B');		
+		manhatDist = manhatDist +  Math.abs(goalPos[0]-configPos[0]) + Math.abs(goalPos[1]-configPos[1]);
+
+		//calculates distance for C block between current and goal states
+		configPos = board.getPos('C');
+		goalPos = goal.getPos('C');		
+		manhatDist = manhatDist +  Math.abs(goalPos[0]-configPos[0]) + Math.abs(goalPos[1]-configPos[1]);
+
+	}
+	
 	//calculates the evaluation function and stores in fVal
 	public void setFval(Grid goal) {
-		this.board.setManhattan(goal);
-		fVal = 2*this.board.getManhattan() + this.depth/2;
+		setManhattan(goal);
+		fVal = 2*this.manhatDist + this.depth/2;
 	}
 	
 	//finds all children for node and stores in children arraylist
