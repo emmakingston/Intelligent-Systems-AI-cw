@@ -29,7 +29,7 @@ public class IDFS {
 				System.out.println("\nPath to solution");
 				getSolution();
 			} else {
-				System.out.println("Solution not found after checking total " + nodesChecked + " nodes");
+				//System.out.println("Solution not found after checking total " + nodesChecked + " nodes");
 			}
 			if(found) {
 				break;

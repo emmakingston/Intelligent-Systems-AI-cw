@@ -96,7 +96,7 @@ public class Node implements Comparable<Node>{
 	//calculates the evaluation function and stores in fVal
 	public void setFval(Grid goal) {
 		setManhattan(goal);
-		fVal = 2*this.manhatDist + this.depth/2;
+		fVal = this.manhatDist + this.depth;
 	}
 	
 	//finds all children for node and stores in children arraylist

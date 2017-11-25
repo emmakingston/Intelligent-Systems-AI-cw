@@ -31,6 +31,15 @@ public class AStar {
 			 current = queued.poll();
 			 nodesChecked++;
 			 
+			 if(nodesChecked%10 == 0) {
+				 System.out.println(nodesChecked);
+			 }
+//			 System.out.println();
+//			 System.out.println("Node: " + nodesChecked );
+//			 System.out.println("Heuristic value: " + current.getFVal());
+//			 current.getGrid().print();
+			 
+			 
 			 //checks if current node is valid solution
 			 if(current.getGrid().compareTo(goal)) {
 				 found = true;
@@ -47,11 +56,11 @@ public class AStar {
 				 }
 			 }	
 			 
-//			 try {
-//				    Thread.sleep(1000);                 //1000 milliseconds is one second.
-//				} catch(InterruptedException ex) {
-//				    Thread.currentThread().interrupt();
-//				}
+			 try {
+				    Thread.sleep(1000);                 //1000 milliseconds is one second.
+				} catch(InterruptedException ex) {
+				    Thread.currentThread().interrupt();
+				}
 		}
 		
 		if(found) {
