@@ -8,10 +8,12 @@ public class BFS {
 	private Grid goal;
 	private Node current;
 	private int nodesChecked;
+	private int maxSpace;
 	
 	public BFS(Grid goalGrid, Grid startGrid) {
 		
 		nodesChecked = 0;
+		maxSpace = 0;
 		found = false;
 		goal=goalGrid;
 		
@@ -30,6 +32,8 @@ public class BFS {
 			 current = queued.poll();
 			 nodesChecked++;
 			 
+
+			 
 			 //checks if current node is valid solution
 			 if(current.getGrid().compareTo(goal)) {
 				 found = true;
@@ -43,18 +47,26 @@ public class BFS {
 					queued.add(n);
 				 }
 			 }	
+			 
+			 //checks if the number of nodes in the fringe is greatest number yet 
+			 if(queued.size() > maxSpace) {
+				 maxSpace = queued.size();
+			 }
 			 		 
 		}
 		
+		//if a solution is found output time and space complexity and cal method to print path
 		if(found) {
 			System.out.println("Solution found after checking: " + nodesChecked + "nodes.");
+			System.out.println("Maximum space complexity reached:" + maxSpace);
 			current.getGrid().print();
-			//getSolution();
+			getSolution();
 		} else {
 			System.out.println("Solution not found after checking: " + nodesChecked + "nodes.");
 		}
 	}
 	
+	//colects the path and outputs it to stdoutput
 	public void getSolution() {
 		LinkedList<Node> solution = new LinkedList<Node>();
 		while(current.getParent() != null) {

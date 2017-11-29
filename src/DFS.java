@@ -10,18 +10,20 @@ public class DFS {
 	private Grid goal;
 	private Node current;
 	private int nodesChecked;
+	private int maxSpace;
 	
 	public DFS(Grid goalGrid, Grid startGrid) {
 		
 		nodesChecked = 0;
+		maxSpace = 0;		
 		found = false;
 		goal=goalGrid;
 		
 		//adds the root node to the stack
 		toExpand.add(new Node(null,startGrid));
 		
-		search();		
-		
+		search();	
+	
 	}
 	
 	
@@ -50,20 +52,19 @@ public class DFS {
 					 
 				 }
 			 }	
-	
 			 
-//			 try {
-//				    Thread.sleep(1000);                 //1000 milliseconds is one second.
-//				} catch(InterruptedException ex) {
-//				    Thread.currentThread().interrupt();
-//				}
+			 //checks if the number of nodes in the fringe is greatest number yet 
+			 if(toExpand.size() > maxSpace) {
+				 maxSpace = toExpand.size();
+			 }
+	
 		}
 		
+		//if solution is found output space and time complexity and solution
 		if(found) {
 			System.out.println("Solution found after checking " + nodesChecked + "nodes.");
-			System.out.println();
-			current.getGrid().print();
-			//getSolution();
+			System.out.println("Maximum space complexity reached:" + maxSpace);
+			getSolution();
 		} else {
 			System.out.println("Solution not found after checking " + nodesChecked + "nodes.");
 		}
@@ -83,3 +84,23 @@ public class DFS {
 	}
 
 }
+//
+//int total = 0;
+//int totalSpace = 0;
+//
+//for(int i=0;i<50;i++) {
+//	System.out.println(i);
+//	nodesChecked = 0;
+//	maxSpace = 0;
+//	found = false;
+//	goal=goalGrid;
+//	
+//	//adds the root node to the stack
+//	toExpand.add(new Node(null,new Grid(startGrid)));
+//	
+//	search();	
+//	total = total +nodesChecked;
+//	totalSpace = totalSpace + maxSpace;
+//}
+//System.out.println("Average time complexity" + total/50);
+//System.out.println("Average space complexity" + totalSpace/50);

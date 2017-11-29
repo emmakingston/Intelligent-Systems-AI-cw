@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+//node class stores: depth, associated Grid, parent, children
+//calculates the manhattan distace and A* heuristic
 public class Node implements Comparable<Node>{
 	
 	private Node parent;
@@ -22,7 +24,7 @@ public class Node implements Comparable<Node>{
 		depth = 0;
 	}
 	
-	//node with depth and goal grid
+	//node with depth and goal grid (A* root node)
 	public Node(Grid start, int height, Grid goal) {
 		this.parent = null;
 		board = start;
@@ -56,17 +58,17 @@ public class Node implements Comparable<Node>{
 		return depth;
 	}
 	
-	//returns the minimum path (calculated usin heuristic)
+	//returns the minimum path (calculated using heuristic)
 	public int getFVal() {
 		return fVal;
 	}
 	
-	//returns the mnattan distance of the grid from the previously passed goal state
+	//returns the manhattan distance
 	public int getManhat() {
 		return manhatDist;
 	}
 	
-	//sets the layer of the node
+	//sets the depth of the node
 	public void setDepth(int d) {
 		depth = d;
 	}
@@ -125,7 +127,6 @@ public class Node implements Comparable<Node>{
 		if(downChild.getConfig()!= null) {
 			children.add(new Node(this,downChild));
 		}		
-		
 		
 	}
 	

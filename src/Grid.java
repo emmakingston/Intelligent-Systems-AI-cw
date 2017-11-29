@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//grid class stores the configuration of the board and the agent's position
+//performs all agent moves
+//carries out comparison between two grids (e.g. current and goal)
 public class Grid {
 
 	//R represents row, C represents column	
@@ -26,7 +29,6 @@ public class Grid {
 		config[size-3][blockCol] = 'A';
 		config[size-2][blockCol] = 'B';
 		config[size-1][blockCol] = 'C';
-
 
 	}
 
@@ -117,19 +119,20 @@ public class Grid {
 	//duplicates grid to convert it to 'goal-like state' (removing agent and unmovables) and compares this
 	public Boolean compareTo(Grid goal) {		
 
-		config[agentR][agentC] = 'x';
+		//comparison method for testing with grids with non-movable blocks (faster)
+//		config[agentR][agentC] = 'x';
+//		
+//		if(Arrays.deepEquals(config, goal.getConfig())) {
+//			return true;
+//		} else {
+//			config[agentR][agentC] = 'N';
+//			return false;
+//		}
 		
-		if(Arrays.deepEquals(config, goal.getConfig())) {
-			return true;
-		} else {
-			config[agentR][agentC] = 'N';
-			return false;
-		}
-		
-//		Grid original = new Grid(this);
-//		original.createClearState();
-//
-//		return Arrays.deepEquals(goal.getConfig(), original.getConfig());
+		Grid original = new Grid(this);
+		original.createClearState();
+
+		return Arrays.deepEquals(goal.getConfig(), original.getConfig());
 
 
 	}

@@ -9,10 +9,12 @@ public class AStar {
 	private Grid goal;
 	private Node current;
 	private int nodesChecked;
+	private int maxSpace;
 	
 	public AStar(Grid goalGrid, Grid startGrid) {
 		
 		nodesChecked = 0;
+		maxSpace = 0;
 		found = false;
 		goal=goalGrid;
 		
@@ -31,15 +33,6 @@ public class AStar {
 			 current = queued.poll();
 			 nodesChecked++;
 			 
-			 if(nodesChecked%10 == 0) {
-				 System.out.println(nodesChecked);
-			 }
-//			 System.out.println();
-//			 System.out.println("Node: " + nodesChecked );
-//			 System.out.println("Heuristic value: " + current.getFVal());
-//			 current.getGrid().print();
-			 
-			 
 			 //checks if current node is valid solution
 			 if(current.getGrid().compareTo(goal)) {
 				 found = true;
@@ -56,15 +49,17 @@ public class AStar {
 				 }
 			 }	
 			 
-			 try {
-				    Thread.sleep(1000);                 //1000 milliseconds is one second.
-				} catch(InterruptedException ex) {
-				    Thread.currentThread().interrupt();
-				}
+			 //calculates space complexity
+			 if(queued.size() > maxSpace) {
+				 maxSpace = queued.size();
+			 }
+			
 		}
 		
+		//prints time and space complexity and path when solution found
 		if(found) {
 			System.out.println("Solution found after checking: " + nodesChecked + " nodes at height " + current.getDepth());
+			System.out.println("Space complexity: " +maxSpace);
 			current.getGrid().print();
 			getSolution();
 		} else {
